@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { hideNotification } from '../../../data/redux/ui/uiActions';
 import Notification from './Notification';
-import './notification.css'
+import './notification.css';
 
 const NotificationContainer = ({ hideNotification, notifications }) => {
     const handleClose = (id) => {
@@ -21,6 +22,11 @@ const NotificationContainer = ({ hideNotification, notifications }) => {
         </div>
     )
 }
+
+NotificationContainer.propTypes = {
+    hideNotification: PropTypes.func.isRequired,
+    notifications: PropTypes.array.isRequired
+};
 
 const mapStateToProps = state => ({
     notifications: state.ui.notifications

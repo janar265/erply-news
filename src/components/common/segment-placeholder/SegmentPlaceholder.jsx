@@ -28,6 +28,6 @@ SegmentPlaceholder.propTypes = {
     action: PropTypes.bool,
     actionMessage: PropTypes.string,
     onActionClick: PropTypes.func
-}
+};
 
-export default SegmentPlaceholder
+export default SegmentPlaceholder;

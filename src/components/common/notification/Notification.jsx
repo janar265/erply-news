@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import Message from '../message/Message';
+import PropTypes from 'prop-types';
+import Message from '../message';
 
 const Notification = ({ type, message, onClose, id, duration }) => {
 
@@ -18,5 +19,13 @@ const Notification = ({ type, message, onClose, id, duration }) => {
             content={message} />
     )
 }
+
+Notification.propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    duration: PropTypes.number.isRequired
+};
 
 export default Notification;

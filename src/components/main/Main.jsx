@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '../views/routes';
 import Navbar from '../navbar';
 import ProfileContainer from '../views/profile/ProfileContainer';
-import NotificationContainer from '../common/notification/NotificationContainer';
+import NotificationContainer from '../common/notification';
 import NewsContainer from '../views/news/NewsContainer';
 import StoryContainer from '../views/story/StoryContainer';
 import './Main.css';

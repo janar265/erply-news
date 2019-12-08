@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Story from './Story';
-import SegmentPlaceholder from '../../common/segment-placeholder/SegmentPlaceholder';
-import NewsPlaceholder from '../../common/news-placeholder/NewsPlaceholder';
+import SegmentPlaceholder from '../../common/segment-placeholder';
+import NewsPlaceholder from '../../common/news-placeholder';
 import { fetchNews } from '../../../data/redux/news/newsActions';
 import './Story.css';
 
@@ -15,8 +16,7 @@ const StoryContainer = ({ match, articles, fetchNews }) => {
     useEffect(() => {
         getArticle(decodedURI);
         window.scrollTo(0, 0);
-    }, [articles, id]);
-
+    }, [articles, decodedURI]);
 
     const getArticle = id => {
         if (articles.length === 0) {
@@ -50,6 +50,11 @@ const StoryContainer = ({ match, articles, fetchNews }) => {
     return (
         <Story article={article} onBackClick={backToNewsList} />
     );
+}
+
+StoryContainer.propTypes = {
+    articles: PropTypes.array.isRequired,
+    fetchNews: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

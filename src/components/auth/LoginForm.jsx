@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Button from '../common/button';
 import { Form, Input, Message } from "semantic-ui-react";
 
@@ -50,5 +51,10 @@ const LoginForm = ({ onSubmit, onChange, loginForm }) => {
     )
 }
 
+LoginForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    loginForm: PropTypes.object.isRequired
+}
 
 export default LoginForm;

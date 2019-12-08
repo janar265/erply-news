@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { formatDate } from '../../../utils/dateUtils';
 import './News.css';
 
@@ -23,4 +24,9 @@ const NewsListItem = ({ story, onClick }) => {
     )
 }
 
-export default NewsListItem
+NewsListItem.propTypes = {
+    story: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired
+}
+
+export default NewsListItem;

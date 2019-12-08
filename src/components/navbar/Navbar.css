@@ -20,6 +20,11 @@
     color:  #fff;
 }
 
+.ui.button.logout-button:hover {
+    background-color: rgb(255, 192, 167);
+    color:  #fff;
+}
+
 .navbar-link-group {
     display: flex;
     margin-right: 40px;

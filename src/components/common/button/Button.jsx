@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button as SButton } from 'semantic-ui-react';
 import './Button.css';
 
@@ -12,4 +13,8 @@ const Button = props => {
     )
 }
 
-export default Button
+Button.propTypes = {
+    primary: PropTypes.bool
+};
+
+export default Button;

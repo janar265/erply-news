@@ -24,7 +24,8 @@ const Story = ({ article, onBackClick }) => {
 }
 
 Story.propTypes = {
-    article: PropTypes.object.isRequired
+    article: PropTypes.object.isRequired,
+    onBackClick: PropTypes.func.isRequired
 }
 
 export default Story;

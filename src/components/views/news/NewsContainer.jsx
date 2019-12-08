@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import NewsList from './NewsList';
-import Button from '../../common/button';
 import { Input } from 'semantic-ui-react';
 import { fetchNews, clearNews } from '../../../data/redux/news/newsActions';
+import { getQueryParams } from '../../../utils/utils';
+import Button from '../../common/button';
+import NewsList from './NewsList';
 import CategorySelector from '../../common/category-selector';
 import newsCategories from '../../../data/constants/newsCategories';
-import { getQueryParams } from '../../../utils/utils';
 
 const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMoreNews, totalNewsCount, history, location }) => {
 
-    const queryParams = getQueryParams(location.search);
     const PAGE_SIZE = 10;
+    const queryParams = getQueryParams(location.search);
     const [pageToLoad, setPageToLoad] = useState(2);
     const [searchQuery, setSearchQuery] = useState(queryParams && queryParams.q || '');
     const [category, setCategory] = useState(queryParams && queryParams.category || 'General');
@@ -109,6 +110,15 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
                 loadMore={loadingMoreNews} />
         </div>
     )
+}
+
+NewsContainer.propTypes = {
+    fetchNews: PropTypes.func.isRequired,
+    clearNews: PropTypes.func.isRequired,
+    articles: PropTypes.array.isRequired,
+    loadingNews: PropTypes.bool.isRequired,
+    loadingMoreNews: PropTypes.bool.isRequired,
+    totalNewsCount: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({

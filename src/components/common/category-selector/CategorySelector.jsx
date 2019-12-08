@@ -20,6 +20,6 @@ CategorySelector.propTypes = {
     categories: PropTypes.array.isRequired,
     onCategoryChange: PropTypes.func.isRequired,
     selectedCategory: PropTypes.string.isRequired
-}
+};
 
 export default CategorySelector;

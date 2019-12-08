@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import userService from '../../../data/services/user/userService';
-import Profile from './Profile';
 import { setUiLoading, showNotification } from '../../../data/redux/ui/uiActions';
 import { patchUser } from '../../../data/redux/auth/authActions';
 import { Notification } from '../../common/notification/api/Notification';
+import userService from '../../../data/services/user/userService';
+import Profile from './Profile';
 import './Profile.css';
 
 const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser }) => {
@@ -32,8 +33,6 @@ const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser
         }
     }
 
-    const handleUserInfoChange = (name, value) => setUserData({ ...userData, [name]: value })
-
     const handleUserInfoSubmit = async () => {
         setLoading(true);
         try {
@@ -46,6 +45,8 @@ const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser
         }
     }
 
+    const handleUserInfoChange = (name, value) => setUserData({ ...userData, [name]: value })
+
     return (
         <div className="profile-container">
             <Profile
@@ -56,6 +57,13 @@ const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser
                 isLoading={isLoading} />
         </div>
     )
+}
+
+ProfileContainer.propTypes = {
+    uiLoading: PropTypes.bool.isRequired,
+    setUiLoading: PropTypes.func.isRequired,
+    showNotification: PropTypes.func.isRequired,
+    patchUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

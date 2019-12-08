@@ -1,7 +1,7 @@
 .category {
     cursor: pointer;
     padding: 5px 10px 5px 10px;
-    border-radius: 10%;
+    border-radius: 5px;
     background-color: rgb(233, 233, 233);
     font-weight: 600;
 }
@@ -21,4 +21,20 @@
 .category.active {
     background-color: #005685;
     color: #fff;
+}
+
+@media only screen and (max-width: 762px) {
+    .category-selector-container {
+        padding: 0 20px 0 20px;
+        margin: 20px 0 0 0;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .category {
+        margin: 0 10px 15px 10px;
+        text-align: center;
+        border-radius: 5px;
+        flex-grow: 1;
+    }
 }

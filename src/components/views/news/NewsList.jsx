@@ -1,8 +1,8 @@
 import React from 'react';
-import NewsListItem from './NewsListItem';
-import NewsPlaceholder from '../../common/news-placeholder/NewsPlaceholder';
-import SegmentPlaceholder from '../../common/segment-placeholder/SegmentPlaceholder';
 import PropTypes from 'prop-types';
+import NewsListItem from './NewsListItem';
+import NewsPlaceholder from '../../common/news-placeholder';
+import SegmentPlaceholder from '../../common/segment-placeholder';
 import './News.css';
 
 const NewsList = ({ news, isLoading, loadMore, onStoryClick, clearQuery }) => {
@@ -21,7 +21,7 @@ const NewsList = ({ news, isLoading, loadMore, onStoryClick, clearQuery }) => {
                 icon={"search"}
                 action
                 onActionClick={clearQuery}
-                actionMessage={"Clear query"}
+                actionMessage={"Clear search"}
                 message={"We didn't find any news."} />
         );
     }
@@ -39,7 +39,9 @@ const NewsList = ({ news, isLoading, loadMore, onStoryClick, clearQuery }) => {
 NewsList.propTypes = {
     news: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    loadMore: PropTypes.bool.isRequired
+    loadMore: PropTypes.bool.isRequired,
+    onStoryClick: PropTypes.func.isRequired,
+    clearQuery: PropTypes.func.isRequired
 }
 
 export default NewsList;

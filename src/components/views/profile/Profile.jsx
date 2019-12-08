@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../../common/button';
 import { Form, Input } from 'semantic-ui-react';
 
@@ -54,5 +55,13 @@ const Profile = ({ user, onChange, onSubmit, isUiLoading, isLoading }) => {
         </div>
     )
 }
+
+Profile.propTypes = {
+    user: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    isUiLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired
+};
 
 export default Profile;

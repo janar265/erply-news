@@ -11,7 +11,9 @@ const Category = ({ name, isSelected, handleClick }) => {
 }
 
 Category.propTypes = {
-    name: PropTypes.string.isRequired
-}
+    name: PropTypes.string.isRequired,
+    isSelected: PropTypes.bool.isRequired,
+    handleClick: PropTypes.func.isRequired
+};
 
 export default Category;
