@@ -6,27 +6,28 @@ import NewsPlaceholder from '../../common/news-placeholder/NewsPlaceholder';
 import { fetchNews } from '../../../data/redux/news/newsActions';
 import './Story.css';
 
-const StoryContainer = ({ match, articles, fetchNews, history }) => {
+const StoryContainer = ({ match, articles, fetchNews }) => {
 
     const { id } = match.params;
+    const decodedURI = decodeURIComponent(id);
     const [article, setArticle] = useState(null);
 
     useEffect(() => {
-        getArticle(id);
+        getArticle(decodedURI);
         window.scrollTo(0, 0);
     }, [articles, id]);
 
 
     const getArticle = id => {
         if (articles.length === 0) {
-            fetchNews(10, 1, '');
+            fetchNews(10, 1, '', '');
         }
         const article = articles.find(a => a.title === id);
         setArticle(article);
     }
 
     const backToNewsList = () => {
-        history.push("/");
+        window.history.back();
     }
 
     if (articles.length === 0) {
@@ -47,7 +48,7 @@ const StoryContainer = ({ match, articles, fetchNews, history }) => {
     }
 
     return (
-        <Story article={article} />
+        <Story article={article} onBackClick={backToNewsList} />
     );
 }
 

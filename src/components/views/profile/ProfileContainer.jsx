@@ -27,7 +27,7 @@ const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser
             setUserData(user);
             setUiLoading(false);
         } catch (error) {
-            console.log(error);
+            showNotification(new Notification("Couldn't load user information", "error", 3000));
             setUiLoading(false);
         }
     }
@@ -38,10 +38,10 @@ const ProfileContainer = ({ uiLoading, setUiLoading, showNotification, patchUser
         setLoading(true);
         try {
             await patchUser(userData);
-            showNotification(new Notification("SAVED!", "success", 3000));
+            showNotification(new Notification("Saved user information", "success", 3000));
             setLoading(false);
         } catch (error) {
-            console.log(error);
+            showNotification(new Notification("Couldn't save user information", "error", 3000));
             setLoading(false);
         }
     }

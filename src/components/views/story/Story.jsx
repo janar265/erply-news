@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../common/button';
-import { Form } from 'semantic-ui-react';
+import { Form, Icon } from 'semantic-ui-react';
 import { formatDate } from '../../../utils/dateUtils';
 
-const Story = ({ article }) => {
+const Story = ({ article, onBackClick }) => {
     return (
         <div className="story-container">
+            <Icon size="big" className="story-back-button" name="arrow left" onClick={onBackClick} />
             <div className="story-header">{article.title}</div>
             <div className="story-author">{article.author}</div>
             <div>{article.source.name}</div>

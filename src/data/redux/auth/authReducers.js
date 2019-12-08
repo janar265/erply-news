@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
             localStorage.setItem('user', JSON.stringify(payload));
             return {
                 ...state,
-                ...payload,
+                user: { ...payload },
                 isAuthenticated: true,
                 initialized: true
             }

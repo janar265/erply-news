@@ -49,7 +49,7 @@ const Profile = ({ user, onChange, onSubmit, isUiLoading, isLoading }) => {
                     />
                 </Form.Field>
 
-                <Button className="login-button" fluid size="large" loading={isLoading} disabled={isLoading}>Update</Button>
+                <Button primary fluid size="large" loading={isLoading} disabled={isLoading}>Update</Button>
             </Form>
         </div>
     )

@@ -22,10 +22,13 @@ export const clearNews = () => dispatch => {
     dispatch({ type: CLEAR_NEWS })
 };
 
-export const fetchNews = (pageSize, page = 1, searchQuery) => async dispatch => {
+export const fetchNews = (pageSize, page = 1, searchQuery, category) => async dispatch => {
+    if (category !== '' && page === 1) {
+        dispatch(clearNews());
+    }
     dispatch(startFetchingNews());
     try {
-        const response = await newsService.fetchTopNews(pageSize, page, searchQuery);
+        const response = await newsService.fetchTopNews(pageSize, page, searchQuery, category);
         dispatch(fetchNewsSucceeded(response));
     } catch (error) {
         if (error.body) {

@@ -1,19 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import NewsList from './NewsList';
 import Button from '../../common/button';
 import { Input } from 'semantic-ui-react';
 import { fetchNews, clearNews } from '../../../data/redux/news/newsActions';
+import CategorySelector from '../../common/category-selector';
+import newsCategories from '../../../data/constants/newsCategories';
+import { getQueryParams } from '../../../utils/utils';
 
-const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMoreNews, totalNewsCount, history }) => {
+const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMoreNews, totalNewsCount, history, location }) => {
 
+    const queryParams = getQueryParams(location.search);
     const PAGE_SIZE = 10;
     const [pageToLoad, setPageToLoad] = useState(2);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState(queryParams && queryParams.q || '');
+    const [category, setCategory] = useState(queryParams && queryParams.category || 'General');
 
     useEffect(() => {
-        fetchNewsData(PAGE_SIZE, 1, searchQuery);
-    }, []);
+        fetchNewsData(PAGE_SIZE, 1, searchQuery, category);
+        if (searchQuery !== '') {
+            history.push(`?category=${category}&q=${searchQuery}`);
+        } else {
+            history.push(`?category=${category}`);
+        }
+    }, [category]);
 
     useEffect(() => {
         window.addEventListener("scroll", scrollPositionHandler);
@@ -22,28 +33,42 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
         };
     });
 
-    const fetchNewsData = useCallback(async (pageSize, page, searchQuery) => {
+    const fetchNewsData = useCallback(async (pageSize, page, searchQuery, category) => {
         if (page > 1 && (articles.length === totalNewsCount || articles.length === 100)) {
             return;
         }
         if (articles.length === 0 && searchQuery === '') {
-            fetchNews(PAGE_SIZE, 1, searchQuery);
+            fetchNews(PAGE_SIZE, 1, searchQuery, category);
             return;
         }
-        fetchNews(pageSize, page, searchQuery);
+        fetchNews(pageSize, page, searchQuery, category);
     }, [articles]);
 
 
     const scrollPositionHandler = () => {
         if (totalNewsCount > articles.length && (document.documentElement.scrollHeight === document.documentElement.clientHeight + document.documentElement.scrollTop)) {
             setPageToLoad(pageToLoad + 1)
-            fetchNews(PAGE_SIZE, pageToLoad, searchQuery);
+            fetchNews(PAGE_SIZE, pageToLoad, searchQuery, category);
         }
     }
 
     const handleSearch = () => {
         clearNews();
-        fetchNews(PAGE_SIZE, 1, searchQuery);
+        fetchNews(PAGE_SIZE, 1, searchQuery, category);
+        historyPush();
+    }
+
+    const handleCategorySelect = category => {
+        setCategory(category);
+        historyPush();
+    }
+
+    const historyPush = () => {
+        if (searchQuery !== '') {
+            history.push(`?category=${category}&q=${searchQuery}`);
+            return;
+        }
+        history.push(`?category=${category}`);
     }
 
     const handleKeyPress = e => {
@@ -54,11 +79,12 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
 
     const clearQuery = () => {
         setSearchQuery('');
-        fetchNews(PAGE_SIZE, 1, '');
+        fetchNews(PAGE_SIZE, 1, '', category);
     }
 
     const handleStoryClick = id => {
-        history.push(`/story/${id}`);
+        const encodedURI = encodeURIComponent(id);
+        history.push(`/story/${encodedURI}`);
     }
 
     return (
@@ -71,6 +97,10 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
                 onChange={e => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
                 action={<Button primary content="Search" onClick={handleSearch} />} />
+            <CategorySelector
+                categories={newsCategories}
+                onCategoryChange={handleCategorySelect}
+                selectedCategory={category} />
             <NewsList
                 news={articles}
                 clearQuery={clearQuery}
@@ -83,9 +113,10 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
 
 const mapStateToProps = state => ({
     articles: state.news.articles,
+    category: state.news.category,
     loadingNews: state.news.isLoading,
     loadingMoreNews: state.news.isLoadingMoreNews,
     totalNewsCount: state.news.totalCount
 })
 
-export default connect(mapStateToProps, { fetchNews, clearNews })(NewsContainer);
+export default withRouter(connect(mapStateToProps, { fetchNews, clearNews })(NewsContainer));
