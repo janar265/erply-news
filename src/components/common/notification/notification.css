@@ -1,0 +1,16 @@
+.notification {
+    margin-bottom: 10px;
+    padding: 0 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.notification-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 2500;
+}

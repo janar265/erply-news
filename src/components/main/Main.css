@@ -1,0 +1,23 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 40px 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 80px auto 0 auto;
+}
+
+@media only screen and (max-width: 762px) {
+    .main-body {
+        padding: 40px 0 0 0;
+        width: 100%;
+        margin: 80px auto 0 auto;
+    }
+}

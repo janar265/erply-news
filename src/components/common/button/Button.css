@@ -1,0 +1,19 @@
+.ui.button.button-primary {
+    background-color: #003049;
+    color: #fff;
+}
+
+.ui.button.button-primary:hover {
+    background-color: #004970;
+    color: #fff;
+}
+
+.ui.button.button-primary::selection {
+    background-color: #004970;
+    color: #fff;
+}
+
+.ui.button.button-primary:focus:not(:active) {
+    background-color: #004970;
+    color: #fff;
+}
