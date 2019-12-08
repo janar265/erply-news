@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import LoginContainer from './components/auth/LoginContainer';
 import './App.css';
+import { loadUser } from './data/redux/auth/authActions';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import Main from './components/main';
 
-function App() {
+
+const App = ({ isAuthenticated, isInitialized, loadUser }) => {
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
+  if (!isInitialized) {
+    return (<Dimmer active><Loader content="Loading news portal..." /></Dimmer>);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      {isAuthenticated ? <Main /> : <LoginContainer />}
+    </React.Fragment>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  isInitialized: state.auth.initialized
+})
+
+export default connect(mapStateToProps, { loadUser })(App);
