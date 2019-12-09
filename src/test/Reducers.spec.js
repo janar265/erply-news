@@ -1,6 +1,9 @@
 import authReducer from '../data/redux/auth/authReducers';
 import uiReducer from '../data/redux/ui/uiReducers';
 import newsReducer from '../data/redux/news/newsReducers';
+import { LOGIN, LOGOUT, LOAD_USER_SUCCESS, LOAD_USER_FAILED } from '../data/redux/auth/authActionTypes';
+import { CLEAR_NEWS, FETCH_NEWS_SUCCEEDED, START_FETCHING_NEWS } from '../data/redux/news/newsActionTypes';
+import { SET_LOADING, SHOW_NOTIFICATION, HIDE_NOTIFICATION } from '../data/redux/ui/uiActionTypes';
 
 const userPayload = {
     name: "Test", email: "test@test.com", apiKey: "abcdefghijk"
@@ -89,7 +92,7 @@ describe("Reducers", () => {
     describe("Auth reducers", () => {
         it("Login should set user info", () => {
             const newState = authReducer(initialUserState, {
-                type: "LOGIN",
+                type: LOGIN,
                 payload: userPayload
             });
             expect(newState).toEqual(loggedInState);
@@ -97,21 +100,21 @@ describe("Reducers", () => {
 
         it("Logout should remove user info", () => {
             const newState = authReducer(loggedInState, {
-                type: "LOGOUT"
+                type: LOGOUT
             });
             expect(newState).toEqual(loggedOutState);
         });
 
         it("Failed load user should remove user data", () => {
             const newState = authReducer(loggedInState, {
-                type: "LOAD_USER_FAILED"
+                type: LOAD_USER_FAILED
             });
             expect(newState).toEqual(loggedOutState);
         });
 
         it("Successful load user should persist user data", () => {
             const newState = authReducer(loggedInState, {
-                type: "LOAD_USER_SUCCESS"
+                type: LOAD_USER_SUCCESS
             });
             expect(newState).toEqual(loggedInState);
         });
@@ -120,7 +123,7 @@ describe("Reducers", () => {
     describe("Ui reducers", () => {
         it("Changing loading state", () => {
             const newState = uiReducer(initialUiState, {
-                type: "SET_LOADING",
+                type: SET_LOADING,
                 payload: false
             });
             expect(newState).toEqual({
@@ -131,7 +134,7 @@ describe("Reducers", () => {
 
         it("Show notification should append notification to list", () => {
             const newState = uiReducer(initialUiState, {
-                type: "SHOW_NOTIFICATION",
+                type: SHOW_NOTIFICATION,
                 notification: {
                     id: 1,
                     message: "Test notification",
@@ -144,7 +147,7 @@ describe("Reducers", () => {
 
         it("Append multiple notifications", () => {
             const newState = uiReducer(uiWithNotification, {
-                type: "SHOW_NOTIFICATION",
+                type: SHOW_NOTIFICATION,
                 notification: {
                     id: 2,
                     message: "Test notification",
@@ -157,7 +160,7 @@ describe("Reducers", () => {
 
         it("Hide notification removes correct notification", () => {
             const newState = uiReducer(uiWithMultipleNotifications, {
-                type: "HIDE_NOTIFICATION",
+                type: HIDE_NOTIFICATION,
                 id: 2
             });
             expect(newState).toEqual(uiWithNotification);
@@ -167,14 +170,14 @@ describe("Reducers", () => {
     describe("News reducers", () => {
         it("Start fetching sets state to loading", () => {
             const newState = newsReducer(initialNewsState, {
-                type: "START_FETCHING_NEWS"
+                type: START_FETCHING_NEWS
             });
             expect(newState).toEqual(loadingNewsState);
         });
 
         it("Fetch news succeed appends news to state", () => {
             const newState = newsReducer(initialNewsState, {
-                type: "FETCH_NEWS_SUCCEEDED",
+                type: FETCH_NEWS_SUCCEEDED,
                 payload: newsPayload
             });
             expect(newState).toEqual(fetchedNews);
@@ -182,7 +185,7 @@ describe("Reducers", () => {
 
         it("Clear news should empty articles", () => {
             const newState = newsReducer(fetchedNews, {
-                type: "CLEAR_NEWS",
+                type: CLEAR_NEWS,
             });
             expect(newState).toEqual(initialNewsState);
         });
