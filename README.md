@@ -18,7 +18,7 @@ This will start the project in development mode
 
 To run the tests
 
-````
+```
 npm test
 ```
 
