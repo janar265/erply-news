@@ -1,0 +1,16 @@
+{
+  "testRegex": "((\\.|/*.)(spec))\\.js?$",
+  "verbose": true,
+  "transform": {
+    "^.+\\.jsx$": "babel-jest",
+    "^.+\\.js$": "babel-jest"
+  },
+  "moduleFileExtensions": [
+    "js",
+    "jsx"
+  ],
+  "moduleDirectories": [
+    "node_modules",
+    "src/redux"
+  ]
+}

@@ -16,12 +16,12 @@
 }
 
 .ui.button.logout-button {
-    background-color: #FFA987;
+    background-color: rgb(255, 108, 50);
     color:  #fff;
 }
 
 .ui.button.logout-button:hover {
-    background-color: rgb(255, 192, 167);
+    background-color: rgb(255, 83, 15);
     color:  #fff;
 }
 
