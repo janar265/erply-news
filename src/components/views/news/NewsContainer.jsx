@@ -80,6 +80,7 @@ const NewsContainer = ({ fetchNews, clearNews, articles, loadingNews, loadingMor
 
     const clearQuery = () => {
         setSearchQuery('');
+        history.push(`?category=${category}`);
         fetchNews(PAGE_SIZE, 1, '', category);
     }
 

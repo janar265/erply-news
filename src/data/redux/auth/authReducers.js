@@ -33,6 +33,7 @@ export default (state = initialState, action) => {
         case LOAD_USER_FAILED:
             return {
                 ...state,
+                user: null,
                 isAuthenticated: false,
                 initialized: true
             }
